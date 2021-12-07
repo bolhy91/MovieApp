@@ -22,4 +22,4 @@ Credits Design: [Ihza Creative](https://www.figma.com/community/file/10477228559
 
 ### Contact
 * email: bolhy91@gmail.com
-* Author: Bolivar Cortes
+* Author: Bolívar Cortes
