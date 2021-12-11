@@ -22,69 +22,71 @@ import com.bcoding.movieapp.ui.theme.iconColor
 
 @Composable
 fun TopBar() {
-    TopAppBar(
-        title = {
-            Row(
-                horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier
-                    .fillMaxWidth()
-            ) {
-                Column {
-                    Text(
-                        buildAnnotatedString {
-                            withStyle(
-                                style = SpanStyle(
-                                    fontSize = 24.sp,
-                                    fontWeight = FontWeight.SemiBold
-                                )
-                            ) {
-                                append("Hello ")
-                            }
-                            withStyle(
-                                style = SpanStyle(
-                                    fontSize = 24.sp,
-                                    fontWeight = FontWeight.Normal
-                                )
-                            ) {
-                                append("Bolivar")
-                            }
-                        },
-                        modifier = Modifier.padding(bottom = 8.dp)
-                    )
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(4.dp)
-                    ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_map),
-                            contentDescription = "location",
-                            tint = iconColor,
-                            modifier = Modifier.size(24.dp),
-                        )
+    Box(modifier = Modifier.fillMaxWidth().padding(15.dp)){
+        TopAppBar(
+            title = {
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ) {
+                    Column {
                         Text(
-                            text = "New York City",
-                            style = MaterialTheme.typography.body2,
-                            color = caption
+                            buildAnnotatedString {
+                                withStyle(
+                                    style = SpanStyle(
+                                        fontSize = 24.sp,
+                                        fontWeight = FontWeight.SemiBold
+                                    )
+                                ) {
+                                    append("Hello ")
+                                }
+                                withStyle(
+                                    style = SpanStyle(
+                                        fontSize = 24.sp,
+                                        fontWeight = FontWeight.Normal
+                                    )
+                                ) {
+                                    append("Bolivar")
+                                }
+                            },
+                            modifier = Modifier.padding(bottom = 8.dp)
                         )
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_arrow_down),
-                            contentDescription = "arrow down",
-                            tint = iconColor,
-                            modifier = Modifier.size(16.dp)
-                        )
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(4.dp)
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_map),
+                                contentDescription = "location",
+                                tint = iconColor,
+                                modifier = Modifier.size(24.dp),
+                            )
+                            Text(
+                                text = "New York City",
+                                style = MaterialTheme.typography.body2,
+                                color = caption
+                            )
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_arrow_down),
+                                contentDescription = "arrow down",
+                                tint = iconColor,
+                                modifier = Modifier.size(16.dp)
+                            )
+                        }
                     }
-                }
 
-                Image(
-                    painter = painterResource(id = R.drawable.profile),
-                    contentDescription = "profile",
-                    modifier = Modifier.size(56.dp)
-                )
-            }
-        },
-        elevation = 0.dp,
-        modifier = Modifier
-            .height(70.dp)
-    )
+                    Image(
+                        painter = painterResource(id = R.drawable.profile),
+                        contentDescription = "profile",
+                        modifier = Modifier.size(56.dp)
+                    )
+                }
+            },
+            elevation = 0.dp,
+            modifier = Modifier
+                .height(70.dp)
+        )
+    }
 }
 
 @Preview
