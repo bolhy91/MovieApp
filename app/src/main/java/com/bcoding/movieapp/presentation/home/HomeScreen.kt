@@ -117,15 +117,15 @@ fun Promos() {
         promos.forEach { promo ->
             Box(
                 modifier = Modifier
-                    .width(320.dp)
-                    .height(120.dp)
+                    .height(200.dp)
                     .padding(5.dp)
             ) {
                 Image(
                     painter = painterResource(id = promo),
                     contentDescription = null,
                     modifier = Modifier
-                        .fillMaxSize()
+                        .width(320.dp)
+                        .height(120.dp)
                 )
             }
         }
