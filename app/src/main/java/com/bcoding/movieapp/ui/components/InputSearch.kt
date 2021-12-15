@@ -25,7 +25,6 @@ fun InputSearch() {
         contentAlignment = Alignment.Center,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 20.dp)
     ) {
         TextField(
             value = "",

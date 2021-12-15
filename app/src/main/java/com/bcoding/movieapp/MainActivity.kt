@@ -4,6 +4,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.scrollable
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
@@ -40,10 +45,21 @@ private fun MainScreen() {
         ) {
             Scaffold(
                 topBar = { TopBar() },
-                bottomBar = { BottomBar(navController = navController) }
+                bottomBar = { BottomBar(navController = navController) },
             ){
                 Navigation(navController = navController)
             }
+
+            /**Column(modifier = Modifier
+                .verticalScroll(rememberScrollState())) {
+                // TopBar
+                TopBar()
+                // Navigation
+                Navigation(navController = navController)
+                //Bottom Menu
+                BottomBar(navController = navController)
+            }*/
+
         }
     }
 }
