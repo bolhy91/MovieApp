@@ -5,16 +5,30 @@ plugins {
     id("dagger.hilt.android.plugin")
 }
 
+def getProperty(String filename, String propName) {
+    def propsFile = rootProject.file(filename)
+    if (propsFile.exists()) {
+        def props = new Properties()
+        props.load(new FileInputStream(propsFile))
+        if (props[propName] != null) {
+            return props[propName]
+        } else {
+            print("No such property " + propName + " in file " + filename)
+        }
+    } else {
+        print(filename + " does not exist!")
+    }
+}
+
 android {
     compileSdk 31
-
     defaultConfig {
         applicationId "com.bcoding.movieapp"
         minSdk 27
         targetSdk 31
         versionCode 1
         versionName "1.0"
-
+        buildConfigField "String", "TMDB_API_KEY", "\"${getProperty("local.properties", "tmdb_api_key")}\""
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary true
@@ -63,6 +77,7 @@ dependencies {
     //Hilt
     implementation("com.google.dagger:hilt-android:$hilt_version")
     kapt("com.google.dagger:hilt-android-compiler:$hilt_version")
+    implementation 'androidx.hilt:hilt-navigation-compose:1.0.0-alpha03'
     //Navigation
     implementation("androidx.navigation:navigation-compose:2.4.0-beta02")
 
@@ -74,4 +89,8 @@ dependencies {
     // Pager Indicators
     implementation 'com.google.accompanist:accompanist-pager-indicators:0.21.4-beta'
     implementation 'com.google.accompanist:accompanist-pager:0.21.4-beta'
+    // Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
 }

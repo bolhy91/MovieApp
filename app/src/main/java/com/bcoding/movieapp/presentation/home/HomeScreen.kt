@@ -1,10 +1,10 @@
 package com.bcoding.movieapp.presentation.home
 
 
-import android.util.Log
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -19,6 +19,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.bcoding.movieapp.R
 import com.bcoding.movieapp.ui.components.InputSearch
 import com.google.accompanist.pager.*
@@ -27,6 +28,7 @@ import kotlin.math.absoluteValue
 @ExperimentalPagerApi
 @Composable
 fun HomeScreen() {
+    val viewModel: HomeViewModel = hiltViewModel()
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -36,6 +38,9 @@ fun HomeScreen() {
             modifier = Modifier
         ) {
             InputSearch()
+            Button(onClick = { viewModel.getPlayingNow() }) {
+                Text(text = "CONSULTAR")
+            }
             MovieHorizontalPager()
         }
     }
@@ -46,7 +51,8 @@ fun HomeScreen() {
 fun MovieHorizontalPager() {
     val pagerState = rememberPagerState()
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
             .verticalScroll(rememberScrollState())
 
     ) {

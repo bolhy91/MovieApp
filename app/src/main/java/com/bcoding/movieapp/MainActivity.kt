@@ -46,18 +46,18 @@ private fun MainScreen() {
             Scaffold(
                 topBar = { TopBar() },
                 bottomBar = { BottomBar(navController = navController) },
-            ){
+            ) {
                 Navigation(navController = navController)
             }
 
             /**Column(modifier = Modifier
-                .verticalScroll(rememberScrollState())) {
-                // TopBar
-                TopBar()
-                // Navigation
-                Navigation(navController = navController)
-                //Bottom Menu
-                BottomBar(navController = navController)
+            .verticalScroll(rememberScrollState())) {
+            // TopBar
+            TopBar()
+            // Navigation
+            Navigation(navController = navController)
+            //Bottom Menu
+            BottomBar(navController = navController)
             }*/
 
         }
