@@ -4,10 +4,7 @@ package com.bcoding.movieapp.presentation.home
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,16 +16,27 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
+import coil.compose.rememberImagePainter
 import com.bcoding.movieapp.R
+import com.bcoding.movieapp.models.entities.Movie
+import com.bcoding.movieapp.models.network.PlayingNowState
+import com.bcoding.movieapp.network.Api
+import com.bcoding.movieapp.ui.components.BottomBar
 import com.bcoding.movieapp.ui.components.InputSearch
+import com.bcoding.movieapp.ui.components.TopBar
+import com.bcoding.movieapp.ui.theme.background
+import com.bcoding.movieapp.utils.rememberRandomSampleMovie
 import com.google.accompanist.pager.*
 import kotlin.math.absoluteValue
 
 @ExperimentalPagerApi
 @Composable
-fun HomeScreen() {
-    val viewModel: HomeViewModel = hiltViewModel()
+fun HomeScreen(
+    navController: NavHostController,
+    state: PlayingNowState,
+    onItemClick: (Long) -> Unit
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -38,17 +46,17 @@ fun HomeScreen() {
             modifier = Modifier
         ) {
             InputSearch()
-            Button(onClick = { viewModel.getPlayingNow() }) {
-                Text(text = "CONSULTAR")
-            }
-            MovieHorizontalPager()
+            MovieHorizontalPager(state, onItemClick)
         }
     }
 }
 
 @ExperimentalPagerApi
 @Composable
-fun MovieHorizontalPager() {
+fun MovieHorizontalPager(
+    state: PlayingNowState,
+    onItemClick: (Long) -> Unit
+) {
     val pagerState = rememberPagerState()
     Column(
         modifier = Modifier
@@ -69,26 +77,30 @@ fun MovieHorizontalPager() {
             contentPadding = PaddingValues(horizontal = 70.dp),
             modifier = Modifier.fillMaxSize()
         ) { page ->
-            CardHomeMovie(modifier = Modifier
-                .graphicsLayer {
-                    // page = 0,1,2 (count)
-                    val pageOffset = calculateCurrentOffsetForPage(page).absoluteValue
-                    // Animar scaleX + scaleY, entre 85% y 100%
-                    lerp(
-                        start = 0.85f,
-                        stop = 1f,
-                        fraction = 1f - pageOffset.coerceIn(0f, 1f)
-                    ).also { scale ->
-                        scaleX = scale
-                        scaleY = scale
-                    }
+            CardHomeMovie(
+                state,
+                onItemClick = onItemClick,
+                modifier = Modifier
+                    .graphicsLayer {
+                        // page = 0,1,2 (count)
+                        val pageOffset = calculateCurrentOffsetForPage(page).absoluteValue
+                        // Animate scaleX + scaleY, entre 85% y 100%
+                        lerp(
+                            start = 0.85f,
+                            stop = 1f,
+                            fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                        ).also { scale ->
+                            scaleX = scale
+                            scaleY = scale
+                        }
 
-                    alpha = lerp(
-                        start = 0.5f,
-                        stop = 1f,
-                        fraction = 1f - pageOffset.coerceIn(0f, 1f)
-                    )
-                }, page)
+                        alpha = lerp(
+                            start = 0.5f,
+                            stop = 1f,
+                            fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                        )
+                    }
+            )
         }
 
         // Indicators
@@ -100,7 +112,6 @@ fun MovieHorizontalPager() {
         )
         Promos()
     }
-
 }
 
 @Composable
@@ -139,36 +150,32 @@ fun Promos() {
 }
 
 @Composable
-fun CardHomeMovie(modifier: Modifier, page: Int) {
-    Card(
-        modifier = modifier
-            .width(210.dp)
-            .height(280.dp)
-            .shadow(8.dp, RoundedCornerShape(24.dp), clip = true)
-            .background(Color.White)
-    ) {
-        when(page){
-            0 -> Image(
-                painter = painterResource(id = R.drawable.fondo),
-                contentDescription = "fondo",
-                modifier = Modifier,
-                contentScale = ContentScale.FillWidth
-            )
-            1 -> Image(
-                painter = painterResource(id = R.drawable.fondo2),
-                contentDescription = "fondo",
-                modifier = Modifier,
-                contentScale = ContentScale.FillWidth
-            )
-
-            2 -> Image(
-                painter = painterResource(id = R.drawable.fondo3),
-                contentDescription = "fondo",
+fun CardHomeMovie(
+    state: PlayingNowState,
+    onItemClick: (Long) -> Unit,
+    modifier: Modifier
+) {
+    if (state.movies.isNotEmpty()) {
+        val movieRandom: Movie = rememberRandomSampleMovie(seeds = state.movies)
+        Card(
+            modifier = modifier
+                .width(210.dp)
+                .height(280.dp)
+                .shadow(8.dp, RoundedCornerShape(24.dp), clip = true)
+                .background(Color.White)
+                .clickable { onItemClick(movieRandom.id) }
+        ) {
+            Image(
+                painter = if (state.movies.isNotEmpty()) {
+                    rememberImagePainter(Api.getPosterPath(movieRandom.poster_path))
+                } else {
+                    painterResource(id = R.drawable.fondo)
+                },
+                contentDescription = null,
                 modifier = Modifier,
                 contentScale = ContentScale.FillWidth
             )
         }
-
     }
 }
 
@@ -176,5 +183,5 @@ fun CardHomeMovie(modifier: Modifier, page: Int) {
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen()
+    //HomeScreen()
 }

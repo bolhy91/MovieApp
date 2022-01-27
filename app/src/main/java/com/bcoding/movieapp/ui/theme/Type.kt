@@ -36,6 +36,11 @@ val Typography = Typography(
         fontWeight = FontWeight.SemiBold,
         fontSize = 16.sp
     ),
+    h4= TextStyle(
+        fontFamily = poppins,
+        fontWeight = FontWeight.Normal,
+        fontSize = 12.sp
+    ),
     body1 = TextStyle(
         fontFamily = poppins,
         fontWeight = FontWeight.Normal,
@@ -54,7 +59,6 @@ val Typography = Typography(
     caption = TextStyle(
         fontFamily = poppins,
         fontWeight = FontWeight.Normal,
-        fontSize = 14.sp
+        fontSize = 12.sp
     )
-
 )
