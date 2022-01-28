@@ -14,7 +14,6 @@ import com.bcoding.movieapp.navigation.Destination
 import com.bcoding.movieapp.presentation.profile.ProfileScreen
 import com.bcoding.movieapp.presentation.ticket.TicketScreen
 import com.bcoding.movieapp.ui.components.BottomBar
-import com.bcoding.movieapp.ui.components.TopBar
 import com.bcoding.movieapp.ui.theme.background
 import com.google.accompanist.pager.ExperimentalPagerApi
 
@@ -30,7 +29,6 @@ fun HomeTabScreen(
             .background(background)
     ) {
         Scaffold(
-            topBar = { TopBar() },
             bottomBar = {
                 BottomBar(
                     viewModel = homeViewModel,

@@ -22,10 +22,8 @@ import com.bcoding.movieapp.R
 import com.bcoding.movieapp.models.entities.Movie
 import com.bcoding.movieapp.models.network.PlayingNowState
 import com.bcoding.movieapp.network.Api
-import com.bcoding.movieapp.ui.components.BottomBar
 import com.bcoding.movieapp.ui.components.InputSearch
-import com.bcoding.movieapp.ui.components.TopBar
-import com.bcoding.movieapp.ui.theme.background
+import com.bcoding.movieapp.ui.components.TopBarHome
 import com.bcoding.movieapp.utils.rememberRandomSampleMovie
 import com.google.accompanist.pager.*
 import kotlin.math.absoluteValue
@@ -45,6 +43,7 @@ fun HomeScreen(
         Column(
             modifier = Modifier
         ) {
+            TopBarHome()
             InputSearch()
             MovieHorizontalPager(state, onItemClick)
         }
