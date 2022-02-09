@@ -18,59 +18,57 @@ import com.bcoding.movieapp.ui.theme.primary500
 
 @Composable
 fun ProfileScreen() {
-    MovieAppTheme {
-        Surface(
+    Surface(
+        modifier = Modifier
+            .background(background)
+    ) {
+        Box(
             modifier = Modifier
-                .background(background)
+                .fillMaxSize()
         ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-            ) {
+            Column {
+                TopBarDefault()
+                val accounts = AccountItemList.values()
+                val others = OtherItemList.values()
                 Column {
-                    TopBarDefault()
-                    val accounts = AccountItemList.values()
-                    val others = OtherItemList.values()
-                    Column {
-                        // Accounts
-                        Text(
-                            text = "Account",
-                            style = MaterialTheme.typography.h1.copy(fontWeight = FontWeight.Bold),
-                            modifier = Modifier.padding(15.dp)
-                        )
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .background(primary500)
+                    // Accounts
+                    Text(
+                        text = "Account",
+                        style = MaterialTheme.typography.h1.copy(fontWeight = FontWeight.Bold),
+                        modifier = Modifier.padding(15.dp)
+                    )
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(primary500)
+                    ) {
+                        Column(
+                            modifier = Modifier.padding(15.dp),
+                            verticalArrangement = Arrangement.spacedBy(10.dp)
                         ) {
-                            Column(
-                                modifier = Modifier.padding(15.dp),
-                                verticalArrangement = Arrangement.spacedBy(10.dp)
-                            ) {
-                                accounts.forEach { item ->
-                                    Text(text = item.title, style = MaterialTheme.typography.body1)
-                                }
+                            accounts.forEach { item ->
+                                Text(text = item.title, style = MaterialTheme.typography.body1)
                             }
                         }
+                    }
 
-                        // Others
-                        Text(
-                            text = "Other",
-                            style = MaterialTheme.typography.h1.copy(fontWeight = FontWeight.Bold),
-                            modifier = Modifier.padding(15.dp)
-                        )
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .background(primary500)
+                    // Others
+                    Text(
+                        text = "Other",
+                        style = MaterialTheme.typography.h1.copy(fontWeight = FontWeight.Bold),
+                        modifier = Modifier.padding(15.dp)
+                    )
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(primary500)
+                    ) {
+                        Column(
+                            modifier = Modifier.padding(15.dp),
+                            verticalArrangement = Arrangement.spacedBy(10.dp)
                         ) {
-                            Column(
-                                modifier = Modifier.padding(15.dp),
-                                verticalArrangement = Arrangement.spacedBy(10.dp)
-                            ) {
-                                others.forEach { item ->
-                                    Text(text = item.title, style = MaterialTheme.typography.body1)
-                                }
+                            others.forEach { item ->
+                                Text(text = item.title, style = MaterialTheme.typography.body1)
                             }
                         }
                     }
