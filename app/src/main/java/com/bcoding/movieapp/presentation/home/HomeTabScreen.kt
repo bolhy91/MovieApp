@@ -2,11 +2,19 @@ package com.bcoding.movieapp.presentation.home
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.bcoding.movieapp.MainScreenHomeTab
@@ -15,6 +23,8 @@ import com.bcoding.movieapp.presentation.profile.ProfileScreen
 import com.bcoding.movieapp.presentation.ticket.TicketScreen
 import com.bcoding.movieapp.ui.components.BottomBar
 import com.bcoding.movieapp.ui.theme.background
+import com.google.accompanist.insets.statusBarsHeight
+import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.pager.ExperimentalPagerApi
 
 @ExperimentalPagerApi
@@ -35,6 +45,7 @@ fun HomeTabScreen(
                     selectedTab
                 )
             },
+            modifier = Modifier.background(Color.Black).fillMaxSize()
         ) {
             Crossfade(selectedTab) { destination ->
                 when (destination) {

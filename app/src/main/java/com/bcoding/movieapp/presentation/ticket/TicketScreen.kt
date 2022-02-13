@@ -69,7 +69,7 @@ fun ticketItem(ticket: Ticket) {
         )
         Column(
             modifier = Modifier
-                .padding(15.dp)
+                .padding(10.dp)
                 .height(100.dp)
         ) {
             Text(
@@ -100,7 +100,7 @@ fun TopBarSectionTicket() {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(20.dp),
+            .padding(15.dp),
         contentAlignment = Alignment.Center
     ) {
         Row(
