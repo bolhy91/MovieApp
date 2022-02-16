@@ -24,20 +24,18 @@ import com.bcoding.movieapp.ui.theme.primary
 
 @Composable
 fun TicketScreen() {
-    MovieAppTheme {
-        Surface(
+    Surface(
+        modifier = Modifier
+            .background(background)
+    ) {
+        Box(
             modifier = Modifier
-                .background(background)
+                .fillMaxSize()
         ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-            ) {
-                Column {
-                    TopBarSectionTicket()
-                    Spacer(modifier = Modifier.height(20.dp))
-                    TicketList(items = TicketArray.tickets)
-                }
+            Column {
+                TopBarSectionTicket()
+                Spacer(modifier = Modifier.height(20.dp))
+                TicketList(items = TicketArray.tickets)
             }
         }
     }
