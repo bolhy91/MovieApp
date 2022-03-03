@@ -12,6 +12,8 @@ import androidx.navigation.navArgument
 import com.bcoding.movieapp.presentation.detail.MovieDetailScreen
 import com.bcoding.movieapp.presentation.detail.MovieDetailViewModel
 import com.bcoding.movieapp.presentation.home.HomeTabScreen
+import com.bcoding.movieapp.presentation.search.SearchScreen
+import com.bcoding.movieapp.presentation.search.SearchViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 
 @ExperimentalPagerApi
@@ -19,12 +21,9 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 fun Navigation(navController: NavHostController) {
     NavHost(navController = navController, startDestination = NavigationBottomItem.Home.route) {
         // Navigation Bottom
-//        homeScreen(navController = navController)
-//        ticketScreen()
-//        profileScreen()
         homeScreenTab(navController = navController)
         movieDetail(navController = navController)
-
+        searchView(navController)
     }
 }
 
@@ -34,35 +33,6 @@ fun NavGraphBuilder.homeScreenTab(navController: NavHostController) {
         HomeTabScreen(navController = navController)
     }
 }
-
-// NavigationBottom
-//@ExperimentalPagerApi
-//fun NavGraphBuilder.homeScreen(navController: NavHostController) {
-//    composable(route = NavigationBottomItem.Home.route) {
-//        val homeViewModel: HomeViewModel = hiltViewModel()
-//        val state = homeViewModel.state.value
-//        HomeScreen(
-//            navController = navController,
-//            state = state,
-//            onItemClick = { movieId ->
-//                navController.navigate("${Destination.MovieDetail.route}/${movieId}")
-//            }
-//        )
-//    }
-//}
-//
-//fun NavGraphBuilder.ticketScreen() {
-//    composable(route = NavigationBottomItem.Ticket.route) {
-//        TicketScreen()
-//    }
-//}
-//
-//
-//fun NavGraphBuilder.profileScreen() {
-//    composable(route = NavigationBottomItem.Profile.route) {
-//        ProfileScreen()
-//    }
-//}
 
 // Details Movie
 fun NavGraphBuilder.movieDetail(navController: NavHostController) {
@@ -79,5 +49,17 @@ fun NavGraphBuilder.movieDetail(navController: NavHostController) {
         Log.i("MOVIEID: ", movieId.toString())
         val movieDetailViewModel: MovieDetailViewModel = hiltViewModel()
         MovieDetailScreen(movieId = movieId, movieDetailViewModel) { navController.navigateUp() }
+    }
+}
+
+// Search View
+fun NavGraphBuilder.searchView(navController: NavHostController) {
+    composable(route = Destination.SearchView.route) {
+        val searchViewModel: SearchViewModel = hiltViewModel()
+        SearchScreen(
+            navHostController = navController,
+            viewModel = searchViewModel,
+            pressOnBack = { navController.navigateUp() }
+        )
     }
 }

@@ -1,6 +1,5 @@
 package com.bcoding.movieapp.presentation.detail
 
-import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
@@ -15,14 +14,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.bcoding.movieapp.R
 import com.bcoding.movieapp.models.entities.Movie
-import com.bcoding.movieapp.models.network.MovieState
 import com.bcoding.movieapp.network.Api
-import com.bcoding.movieapp.ui.theme.MovieAppTheme
 import com.bcoding.movieapp.ui.theme.background
 import com.bcoding.movieapp.ui.theme.borderColor
 import com.bcoding.movieapp.ui.theme.iconColor
@@ -40,8 +36,6 @@ fun MovieDetailScreen(
     LaunchedEffect(key1 = movieId) {
         viewModel.getMovie(movieId = movieId)
     }
-
-    Log.i("MOVIEDETAIL: ", movie.toString())
 
     Surface(
         modifier = Modifier

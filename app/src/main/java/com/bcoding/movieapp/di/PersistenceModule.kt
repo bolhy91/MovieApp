@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.bcoding.movieapp.persistence.AppDatabase
 import com.bcoding.movieapp.persistence.MovieDao
+import com.bcoding.movieapp.persistence.SerieDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,5 +29,11 @@ object PersistenceModule {
     @Singleton
     fun provideMovieDao(appDatabase: AppDatabase): MovieDao {
         return appDatabase.movieDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideSerieDao(appDatabase: AppDatabase) : SerieDao {
+        return appDatabase.serieDao()
     }
 }

@@ -21,6 +21,7 @@ import coil.compose.rememberImagePainter
 import com.bcoding.movieapp.R
 import com.bcoding.movieapp.models.entities.Movie
 import com.bcoding.movieapp.models.network.PlayingNowState
+import com.bcoding.movieapp.navigation.Destination
 import com.bcoding.movieapp.network.Api
 import com.bcoding.movieapp.ui.components.InputSearch
 import com.bcoding.movieapp.ui.components.TopBarHome
@@ -44,7 +45,7 @@ fun HomeScreen(
             modifier = Modifier
         ) {
             TopBarHome()
-            InputSearch()
+            InputSearch(onInputClick = { navController.navigate(Destination.SearchView.route) })
             MovieHorizontalPager(state, onItemClick)
         }
     }

@@ -1,5 +1,6 @@
 package com.bcoding.movieapp.ui.components
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -16,63 +17,71 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import coil.compose.rememberImagePainter
 import com.bcoding.movieapp.R
+import com.bcoding.movieapp.network.Api
 
 @Composable
-fun CardItem(modifier: Modifier = Modifier) {
-    MaterialTheme {
-        Card(
+fun CardItem(
+    title: String,
+    posterPath: String?,
+    modifier: Modifier = Modifier
+) {
+    Card(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(5.dp)
+            .shadow(8.dp, RoundedCornerShape(15.dp), clip = true)
+            .clickable { },
+    ) {
+        Box(
             modifier = modifier
-                .fillMaxWidth()
-                .shadow(8.dp, RoundedCornerShape(15.dp), clip = true)
-                .clickable { },
+                .height((200..342).random().dp)
         ) {
+            Log.i("POSTER PATH", posterPath.toString())
+            Image(
+                painter = rememberImagePainter(Api.getPosterPath(posterPath)),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = modifier
+                    .fillMaxWidth()
+            )
             Box(
                 modifier = modifier
-                    .height((100..250).random().dp)
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.fondo),
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop,
-                    modifier = modifier
-                        .fillMaxWidth()
-                )
-                Box(
-                    modifier = modifier
-                        .fillMaxSize()
-                        .background(
-                            brush = Brush.verticalGradient(
-                                colors = listOf(
-                                    Color.Transparent,
-                                    Color.Black,
-                                ),
-                                startY = 300f
-                            )
+                    .fillMaxSize()
+                    .background(
+                        brush = Brush.verticalGradient(
+                            colors = listOf(
+                                Color.Transparent,
+                                Color.Black,
+                            ),
+                            startY = 300f
                         )
-                ) {
-                }
-                Box(
-                    modifier = modifier
-                        .fillMaxSize()
-                        .padding(12.dp),
-                    contentAlignment = Alignment.BottomStart
-                ) {
-                    Text(
-                        text = "Eternals",
-                        style = MaterialTheme.typography.h5,
-                        color = Color.White
                     )
-                }
+            ) {
+            }
+            Box(
+                modifier = modifier
+                    .fillMaxSize()
+                    .padding(12.dp),
+                contentAlignment = Alignment.BottomStart
+            ) {
+                Text(
+                    text = title,
+                    style = TextStyle(color = Color.White, fontSize = 16.sp),
+                )
             }
         }
     }
+
 }
 
 @Preview(name = "Card Item")
 @Composable
 fun CardItemPreview() {
-    CardItem()
+    CardItem("Eternals", "/jtnfNzqZwN4E32FGGxx1YZaBWWf.jpg")
 }

@@ -2,6 +2,7 @@ package com.bcoding.movieapp.di
 
 import com.bcoding.movieapp.network.Api
 import com.bcoding.movieapp.datasource.MovieDataSource
+import com.bcoding.movieapp.datasource.SeriesDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,5 +28,11 @@ class NetworkModule {
     @Singleton
     fun provideMoviePlayingNow(retrofit: Retrofit): MovieDataSource {
         return retrofit.create(MovieDataSource::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSeriePopular(retrofit: Retrofit) : SeriesDataSource {
+        return  retrofit.create(SeriesDataSource::class.java)
     }
 }

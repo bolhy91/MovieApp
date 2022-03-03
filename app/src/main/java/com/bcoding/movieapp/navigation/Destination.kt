@@ -5,4 +5,8 @@ sealed class Destination(val route: String) {
         const val routeWithArgument: String = "MovieDetail/{movieId}"
         const val argument0: String = "movieId"
     }
+    object SearchView: Destination("searchView") {
+        const val routeWithArgument: String = "searchView"
+        const val argument0: String = ""
+    }
 }

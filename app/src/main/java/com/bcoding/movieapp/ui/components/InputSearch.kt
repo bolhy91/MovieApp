@@ -2,6 +2,7 @@ package com.bcoding.movieapp.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
@@ -26,7 +27,9 @@ import com.bcoding.movieapp.ui.theme.caption
 import com.bcoding.movieapp.ui.theme.searchColor
 
 @Composable
-fun InputSearch() {
+fun InputSearch(
+    onInputClick: () -> Unit
+) {
     var inputText by remember {
         mutableStateOf("")
     }
@@ -37,6 +40,7 @@ fun InputSearch() {
     ) {
         TextField(
             value = inputText,
+            enabled = false,
             onValueChange = {
                 inputText = it
             },
@@ -55,11 +59,12 @@ fun InputSearch() {
                     width = 1.dp,
                     Color(0xFF78909C),
                     shape = RoundedCornerShape(8.dp)
-                ),
+                )
+                .clickable { onInputClick() },
             shape = RoundedCornerShape(8.dp),
             placeholder = {
                 Text(
-                    text = "Search Movie",
+                    text = "Search...",
                     style = MaterialTheme.typography.body1.copy(color = caption)
                 )
             },
@@ -67,10 +72,4 @@ fun InputSearch() {
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search)
         )
     }
-}
-
-@Preview
-@Composable
-fun InputSearchPreview() {
-    InputSearch()
 }
