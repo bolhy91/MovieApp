@@ -40,7 +40,7 @@ fun CardItem(
     ) {
         Box(
             modifier = modifier
-                .height((200..342).random().dp)
+                .height((200..300).random().dp)
         ) {
             Log.i("POSTER PATH", posterPath.toString())
             Image(

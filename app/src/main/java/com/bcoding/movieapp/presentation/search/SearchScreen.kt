@@ -24,6 +24,7 @@ import com.bcoding.movieapp.ui.components.InputSearch
 import com.bcoding.movieapp.ui.components.StaggeredVerticalGrid
 import com.bcoding.movieapp.ui.theme.MovieAppTheme
 import com.bcoding.movieapp.ui.theme.background
+import com.bcoding.movieapp.ui.theme.primary500
 import com.bcoding.movieapp.ui.theme.primary700
 
 @Composable
@@ -74,6 +75,9 @@ fun ListCardItem(items: List<Serie>) {
 
 @Composable
 fun ListCategoryItem() {
+    var selectedTab by remember {
+        mutableStateOf(TabCategory.SERIES)
+    }
     Box(
         modifier = Modifier
             .clip(RoundedCornerShape(8.dp))
@@ -91,24 +95,32 @@ fun ListCategoryItem() {
                 modifier = Modifier
                     .fillMaxWidth(0.5f)
                     .clip(RoundedCornerShape(8.dp))
-                    .background(background)
-                    .padding(10.dp)
-                    .clickable { },
+                    .clickable { selectedTab = TabCategory.SERIES }
+                    .background(if (selectedTab == TabCategory.SERIES) {
+                        background
+                    } else {
+                        primary500
+                    })
+                    .padding(10.dp),
                 contentAlignment = Alignment.Center
             ) {
-                Text(text = "Movies")
+                Text(text = "Series")
             }
             Spacer(modifier = Modifier.width(3.dp))
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(8.dp))
-                    .background(background)
-                    .padding(10.dp)
-                    .clickable { },
+                    .clickable { selectedTab = TabCategory.MOVIES }
+                    .background(if (selectedTab == TabCategory.MOVIES) {
+                        background
+                    } else {
+                        primary500
+                    })
+                    .padding(10.dp),
                 contentAlignment = Alignment.Center
             ) {
-                Text(text = "Series")
+                Text(text = "Movies")
             }
         }
     }
@@ -137,4 +149,9 @@ fun TopBarSection(pressOnBack: () -> Unit) {
             modifier = Modifier.padding(top = 10.dp, bottom = 10.dp)
         )
     }
+}
+
+enum class TabCategory{
+    SERIES,
+    MOVIES
 }
